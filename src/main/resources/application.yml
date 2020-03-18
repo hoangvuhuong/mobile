@@ -1,0 +1,14 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/adsplus_customer_health_score?useSSL=false&characterEncoding=utf8
+#    password: 123456
+#    username: adPlus_local
+    url: jdbc:mysql://localhost:3306/moblie?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8
+    password: huong20031999
+    username: root
+app:
+  auth:
+    tokenSecret: 926D96CHE46D92KL429D2751QC1BDBCC
+    tokenExpirationMsec: 864000000
