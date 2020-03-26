@@ -7,13 +7,20 @@ public class User {
 	private String username;
 	private String password;
 	private String role;
+	private String avatar;
 	private String numberPhone;
 	private String school;
 	private Integer userClassId;
 	private String email;
 	private Date birthday;
 	private Date createdDate;
-	private Date updateDate;
+	private Date updatedDate;
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -74,11 +81,11 @@ public class User {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-	public Date getUpdateDate() {
-		return updateDate;
+	public Date getUpdatedDate() {
+		return updatedDate;
 	}
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+	public void setUpdatedDate(Date updateDate) {
+		this.updatedDate = updateDate;
 	}
 	
 }

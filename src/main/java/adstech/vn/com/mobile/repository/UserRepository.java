@@ -17,24 +17,24 @@ import adstech.vn.com.mobile.model.User;
 public class UserRepository {
 	@Autowired
 	NamedParameterJdbcTemplate jdbcTemplate;
-	
+
 	public int create(User user) {
-		String sql = "INSERT INTO tbl_users(username, password, role, number_phone, school, user_class_id, email, birthday, created_date)"
-				+ " VALUES(:username, :password, :role, :numberPhone, :school, :userClassId, :email, :birthday, :createdDate);";
+		String sql = "INSERT INTO tbl_users(username, password, role, number_phone, school, avatar,user_class_id, email, birthday, created_date)"
+				+ " VALUES(:username, :password, :role, :numberPhone, :school,:avatar, :userClassId, :email, :birthday, :createdDate);";
 		BeanPropertySqlParameterSource source = new BeanPropertySqlParameterSource(user);
 		return jdbcTemplate.update(sql, source);
 	}
-	
+
 	public int update(User user) {
 		String sql = "UPDATE tbl_users SET username =:username, password =:password, role =:role, number_phone =:numberPhone,"
-				+ " school =:school, user_class_id =:userClassId, email =:email, birthday =:birthday, updated_date =:updatedDate "
+				+ " school =:school,avatar =:avatar, user_class_id =:userClassId, email =:email, birthday =:birthday, updated_date =:updatedDate "
 				+ "WHERE id =:id;";
 		BeanPropertySqlParameterSource source = new BeanPropertySqlParameterSource(user);
 		return jdbcTemplate.update(sql, source);
 	}
-	
+
 	public Optional<User> getByEmail(String email) {
-		String sql="SELECT * FROM tbl_users where email =:email;";
+		String sql = "SELECT * FROM tbl_users where email =:email;";
 		Map<String, Object> argMap = new HashMap<>();
 		argMap.put("email", email);
 		try {
@@ -42,12 +42,12 @@ public class UserRepository {
 					.ofNullable(jdbcTemplate.queryForObject(sql, argMap, new BeanPropertyRowMapper<User>(User.class)));
 		} catch (Exception e) {
 			return Optional.ofNullable(null);
-		
+
+		}
 	}
-	}
-	
+
 	public Optional<User> getByNumberPhone(String phone) {
-		String sql="SELECT * FROM tbl_users where number_phone =:phone;";
+		String sql = "SELECT * FROM tbl_users where number_phone =:phone;";
 		Map<String, Object> argMap = new HashMap<>();
 		argMap.put("phone", phone);
 		try {
@@ -55,11 +55,12 @@ public class UserRepository {
 					.ofNullable(jdbcTemplate.queryForObject(sql, argMap, new BeanPropertyRowMapper<User>(User.class)));
 		} catch (Exception e) {
 			return Optional.ofNullable(null);
-		
+
+		}
 	}
-	}
+
 	public Optional<User> findByUserId(int id) {
-		String sql="SELECT * FROM tbl_users where id =:id;";
+		String sql = "SELECT * FROM tbl_users where id =:id;";
 		Map<String, Object> argMap = new HashMap<>();
 		argMap.put("id", id);
 		try {
@@ -67,7 +68,15 @@ public class UserRepository {
 					.ofNullable(jdbcTemplate.queryForObject(sql, argMap, new BeanPropertyRowMapper<User>(User.class)));
 		} catch (Exception e) {
 			return Optional.ofNullable(null);
-		
+
 		}
-		}
+	}
+	
+	public User getById(int userId) {
+		String sql = "SELECT * FROM tbl_users WHERE id =:id;";
+		Map<String, Object> maps = new HashMap<>();
+		maps.put("id", userId);
+		return jdbcTemplate.queryForObject(sql, maps, new BeanPropertyRowMapper<User>(User.class));
+	}
+	
 }

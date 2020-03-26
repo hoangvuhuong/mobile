@@ -24,10 +24,11 @@ public class UserPrincipal implements UserDetails{
 	private Integer userClassId;
 	private Date birthday; 
 	private String numberPhone;
+	private String avatar;
 	private Collection<? extends GrantedAuthority> authorities;
 	private Map<String, Object> attributes;
 	public UserPrincipal() {}
-	public UserPrincipal(Integer id, String username, String email,String numberPhone ,String school, Integer userClassId,
+	public UserPrincipal(Integer id, String username, String email,String numberPhone,String avatar ,String school, Integer userClassId,
 			Date birthday,Collection<? extends GrantedAuthority> authorities) {
 
 		this.id = id;
@@ -37,6 +38,7 @@ public class UserPrincipal implements UserDetails{
 		this.authorities = authorities;
 		this.school = school;
 		this.birthday = birthday;
+		this.avatar = avatar;
 		this.userClassId = userClassId;
 	}
 
@@ -46,7 +48,7 @@ public class UserPrincipal implements UserDetails{
 
 		authorities.add(new SimpleGrantedAuthority(user.getRole()));
 
-		return new UserPrincipal(user.getId(), user.getUsername(), user.getEmail(),user.getNumberPhone(),
+		return new UserPrincipal(user.getId(), user.getUsername(), user.getEmail(),user.getNumberPhone(),user.getAvatar(),
 				user.getSchool(), user.getUserClassId(),user.getBirthday(), authorities
 		);
 	}
@@ -61,6 +63,9 @@ public class UserPrincipal implements UserDetails{
 	}
 	public Integer getUserClassId() {
 		return userClassId;
+	}
+	public String getAvatar() {
+		return avatar;
 	}
 	public String getSchool() {
 		return school;

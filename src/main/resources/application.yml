@@ -1,14 +1,24 @@
 
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://localhost:3306/adsplus_customer_health_score?useSSL=false&characterEncoding=utf8
 #    password: 123456
 #    username: adPlus_local
-    url: jdbc:mysql://localhost:3306/moblie?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8
-    password: huong20031999
-    username: root
+#    url: jdbc:mysql://localhost:3306/moblie?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8
+#    password: huong20031999
+#    username: root
+    url: jdbc:mysql://us-cdbr-iron-east-05.cleardb.net:3306/heroku_8ff6dec889b1565?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8
+    password: 1132a258
+    username: b84457279bfcf7
 app:
   auth:
     tokenSecret: 926D96CHE46D92KL429D2751QC1BDBCC
     tokenExpirationMsec: 864000000
+file.upload-dir : /templates/images

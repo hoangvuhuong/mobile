@@ -43,6 +43,7 @@ public class TokenProvider {
                 .claim("phone", userPrincipal.getNumberPhone())
                 .claim("school", userPrincipal.getSchool())
                 .claim("birthday", userPrincipal.getBirthday())
+                .claim("avatar", userPrincipal.getAvatar())
                 .claim("userClassId", userPrincipal.getUserClassId())
                 .claim("authorities", authorities)
                 
@@ -66,6 +67,7 @@ public class TokenProvider {
                 .claim("phone", userPrincipal.getNumberPhone())
                 .claim("school", userPrincipal.getSchool())
                 .claim("birthday", userPrincipal.getBirthday())
+                .claim("avatar", userPrincipal.getAvatar())
                 .claim("userClassId", userPrincipal.getUserClassId())
                 .claim("authorities", authorities)
                 .setIssuedAt(new Date())
