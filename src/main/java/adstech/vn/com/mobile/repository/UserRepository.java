@@ -20,14 +20,14 @@ public class UserRepository {
 
 	public int create(User user) {
 		String sql = "INSERT INTO tbl_users(username, password, role, number_phone, school, avatar,user_class_id, email, birthday, created_date)"
-				+ " VALUES(:username, :password, :role, :numberPhone, :school,:avatar, :userClassId, :email, :birthday, :createdDate);";
+				+ " VALUES(:username, :password, :role, :numberPhone, :school,:avatar, :userClassId, :email, :birthday, CURRENT_TIMESTAMP);";
 		BeanPropertySqlParameterSource source = new BeanPropertySqlParameterSource(user);
 		return jdbcTemplate.update(sql, source);
 	}
 
 	public int update(User user) {
-		String sql = "UPDATE tbl_users SET username =:username, password =:password, role =:role, number_phone =:numberPhone,"
-				+ " school =:school,avatar =:avatar, user_class_id =:userClassId, email =:email, birthday =:birthday, updated_date =:updatedDate "
+		String sql = "UPDATE tbl_users SET username =:username,  number_phone =:numberPhone,"
+				+ " school =:school,avatar =:avatar, user_class_id =:userClassId, email =:email, birthday =:birthday, updated_date =CURRENT_TIMESTAMP "
 				+ "WHERE id =:id;";
 		BeanPropertySqlParameterSource source = new BeanPropertySqlParameterSource(user);
 		return jdbcTemplate.update(sql, source);

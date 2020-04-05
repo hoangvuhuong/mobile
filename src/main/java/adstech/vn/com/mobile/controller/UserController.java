@@ -7,12 +7,17 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import adstech.vn.com.mobile.contract.ResponseContract;
 import adstech.vn.com.mobile.model.User;
+import adstech.vn.com.mobile.service.FileStorageService;
 import adstech.vn.com.mobile.service.IUserService;
 import adstech.vn.com.mobile.service.UserService;
 
@@ -21,7 +26,10 @@ import adstech.vn.com.mobile.service.UserService;
 public class UserController {
 	@Autowired
 	IUserService userSrvice;
-
+	
+	@Autowired
+    private FileStorageService fileStorageService;
+	
 	@PostMapping("/create-user")
 	public ResponseContract<?> create(@RequestBody User user) {
 		return userSrvice.create(user);
@@ -46,9 +54,10 @@ public class UserController {
 		return userSrvice.getUserById(userId);
 	}
 	
-	@PostMapping("/{userId}/update-user")
+	@PutMapping("/{userId}/update-user")
 	@PreAuthorize("hasRole('ROLE_TEACHER') or hasRole('ROLE_STUDENT')")
 	public ResponseContract<?> update(@PathVariable Integer userId,@RequestBody User user){
+		
 		user.setId(userId);
 		return userSrvice.updateUser(user);
 	}
