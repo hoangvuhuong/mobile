@@ -7,8 +7,16 @@ public class Post {
 	private String title;
 	private Integer userId;
 	private String image;
+	private Integer classId;
 	private Date createdAt;
 	private Date updatedAt;
+	
+	public Integer getClassId() {
+		return classId;
+	}
+	public void setClassId(Integer classId) {
+		this.classId = classId;
+	}
 	public Integer getId() {
 		return id;
 	}

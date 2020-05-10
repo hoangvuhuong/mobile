@@ -1,5 +1,7 @@
 package adstech.vn.com.mobile.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -8,7 +10,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import adstech.vn.com.mobile.contract.ResponseContract;
+import adstech.vn.com.mobile.model.Post;
 import adstech.vn.com.mobile.model.User;
+import adstech.vn.com.mobile.repository.PostRepository;
+import adstech.vn.com.mobile.repository.UserClassRepository;
 import adstech.vn.com.mobile.repository.UserRepository;
 import adstech.vn.com.mobile.security.TokenProvider;
 import adstech.vn.com.mobile.security.UserPrincipal;
@@ -19,10 +24,16 @@ import adstech.vn.com.mobile.util.CommonConstant;
 public class UserService implements IUserService {
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	PostRepository postRepository;
 
 	@Autowired
 	private TokenProvider tokenProvider;
-
+	
+	@Autowired
+	UserClassRepository userClassRepository;
+	
 	@Override
 	public ResponseContract<?> login(String phone, String pass) {
 		Optional<User> userOptional = userRepository.getByNumberPhone(phone);
@@ -110,8 +121,17 @@ public class UserService implements IUserService {
 	@Override
 	public ResponseContract<?> getUserById(int id) {
 		try {
-			return new ResponseContract<User>(CommonConstant.RESPONSE_STATUS_SUCCESS,  null, userRepository.getById(id));
-		}catch (Exception e) {
+			User user = userRepository.getById(id);
+			if (user != null) {
+				if (AuthenUtil.getPrincipal().getEmail().equals(user.getEmail())) {
+					return new ResponseContract<User>(CommonConstant.RESPONSE_STATUS_SUCCESS, null, user);
+				}
+				else return new ResponseContract<String>(CommonConstant.RESPONSE_STATUS_FAILURE, "Authentication failed", null);
+					
+			}
+				return new ResponseContract<String>(CommonConstant.RESPONSE_STATUS_FAILURE, "user khong ton tai", null);
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseContract<String>(CommonConstant.RESPONSE_STATUS_FAILURE, e.getMessage(), null);
 		}
@@ -120,10 +140,39 @@ public class UserService implements IUserService {
 	@Override
 	public ResponseContract<?> updateUser(User user) {
 		try {
-			return new ResponseContract<Integer>(CommonConstant.RESPONSE_STATUS_SUCCESS, "Cập nhật thành công", userRepository.update(user));
+			return new ResponseContract<Integer>(CommonConstant.RESPONSE_STATUS_SUCCESS, "Cập nhật thành công",
+					userRepository.update(user));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseContract<String>(CommonConstant.RESPONSE_STATUS_FAILURE, e.getMessage(), null);
+		}
+	}
+
+	@Override
+	public ResponseContract<?> getUserByClassId(Integer classId) {
+		try {
+			List<Integer> listUserId = userClassRepository.getUserIdByClassId(classId);
+			List<User> listUser = new ArrayList<User>();
+			for(Integer id : listUserId) {
+				listUser.add(userRepository.getById(id));
+			}
+			return new ResponseContract<List<User>>(CommonConstant.RESPONSE_STATUS_SUCCESS, null, 
+					listUser);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseContract<String>(CommonConstant.RESPONSE_STATUS_FAILURE, e.getMessage(), null);
 		}
 	}
+
+	@Override
+	public ResponseContract<?> getPostById(Integer postId) {
+		try {
+			return new ResponseContract<Post>(CommonConstant.RESPONSE_STATUS_SUCCESS, null, postRepository.findById(postId));
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseContract<String>(CommonConstant.RESPONSE_STATUS_FAILURE, e.getMessage(), null);
+		}
+	}
+	
+	
 }

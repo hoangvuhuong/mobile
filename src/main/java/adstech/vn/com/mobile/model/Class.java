@@ -7,9 +7,17 @@ public class Class {
 	private String name;
 	private String capcha;
 	private Integer teacherId;
+	private String code;
 	private Integer userClassId;
 	private Date createdAt;
 	private Date updatedAt;
+	
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 	public Integer getId() {
 		return id;
 	}

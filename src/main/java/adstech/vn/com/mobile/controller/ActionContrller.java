@@ -50,7 +50,7 @@ public class ActionContrller {
 		return actionService.deletePostByUser(input.get("postId"), input.get("userId"));
 	}
 	
-	@GetMapping("/{userId}/get-by-userId")
+	@GetMapping("/{userId}/get-post-by-userId")
 	public ResponseContract<?> getByUserID(@PathVariable Integer userId){
 		return actionService.getPostByUserID(userId);
 	}

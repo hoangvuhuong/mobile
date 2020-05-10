@@ -22,13 +22,13 @@ public class PostRepository {
 	NamedParameterJdbcTemplate jdbcTemplate;
 	
 	public int create(Post post) {
-		String sql = "INSERT INTO tbl_posts(title, user_id, image, created_at) VALUES(:title, :userId, :image, CURRENT_TIMESTAMP );";
+		String sql = "INSERT INTO tbl_posts(title, user_id, image,classId, created_at) VALUES(:title, :userId, :image,:classId, CURRENT_TIMESTAMP );";
 		BeanPropertySqlParameterSource source = new BeanPropertySqlParameterSource(post);
 		return jdbcTemplate.update(sql, source);
 	}
 	
 	public int update(Post post) {
-		String sql="UPDATE tbl_posts SET title =:title , user_id =:userId, image= :image, updated_at = CURRENT_TIMESTAMP;";
+		String sql="UPDATE tbl_posts SET title =:title , user_id =:userId, image= :image,classId =:classId, updated_at = CURRENT_TIMESTAMP;";
 		BeanPropertySqlParameterSource source = new BeanPropertySqlParameterSource(post);
 		return jdbcTemplate.update(sql, source);
 	}

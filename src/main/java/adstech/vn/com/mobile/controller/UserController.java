@@ -61,4 +61,9 @@ public class UserController {
 		user.setId(userId);
 		return userSrvice.updateUser(user);
 	}
+	
+	@GetMapping("/{postId}/get-post-by-id")
+	public ResponseContract<?> getPostById(@PathVariable Integer postId){
+		return userSrvice.getPostById(postId);
+	}
 }
