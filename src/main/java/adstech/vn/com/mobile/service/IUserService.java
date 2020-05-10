@@ -19,4 +19,6 @@ public interface IUserService {
 	public ResponseContract<?> getUserByClassId(Integer classId);
 	
 	public ResponseContract<?> getPostById(Integer postId);
+	
+	public ResponseContract<?> getPostByClassId(Integer classId);
 }

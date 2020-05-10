@@ -173,6 +173,16 @@ public class UserService implements IUserService {
 			return new ResponseContract<String>(CommonConstant.RESPONSE_STATUS_FAILURE, e.getMessage(), null);
 		}
 	}
+
+	@Override
+	public ResponseContract<?> getPostByClassId(Integer classId) {
+		try {
+			return new ResponseContract<List<Post>>(CommonConstant.RESPONSE_STATUS_SUCCESS, null, postRepository.getByClassId(classId));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseContract<String>(CommonConstant.RESPONSE_STATUS_FAILURE, e.getMessage(), null);
+		}
+	}
 	
 	
 }

@@ -63,4 +63,11 @@ public class PostRepository {
 		
 		return jdbcTemplate.query(sql, maps, new BeanPropertyRowMapper<Post>(Post.class));
 	}
+	
+	public List<Post> getByClassId(Integer classId){
+		String sql = "SELECT * FROM tbl_posts WHERE classId =:classId";
+		Map<String, Object> maps = new HashMap<>();
+		maps.put("classId", classId);
+		return jdbcTemplate.query(sql, maps, new BeanPropertyRowMapper<Post>(Post.class));
+	}
 }

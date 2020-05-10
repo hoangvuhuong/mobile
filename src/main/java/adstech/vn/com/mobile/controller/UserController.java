@@ -66,4 +66,9 @@ public class UserController {
 	public ResponseContract<?> getPostById(@PathVariable Integer postId){
 		return userSrvice.getPostById(postId);
 	}
+	
+	@GetMapping("/{classId}/get-post-by-classId")
+	public ResponseContract<?> getPostByClassId(@PathVariable Integer classId){
+		return userSrvice.getPostByClassId(classId);
+	}
 }
